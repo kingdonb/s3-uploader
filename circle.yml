@@ -26,7 +26,7 @@ dependencies:
 
     # move repository to the canonical import path
     - mkdir -p "$(dirname ${WORKDIR})"
-    - cp -R "${HOME}/croc-hunter" "${WORKDIR}"
+    - cp -R "${HOME}/s3-uploader" "${WORKDIR}"
 
     # install
     - cd "${WORKDIR}" && make bootstrap build
