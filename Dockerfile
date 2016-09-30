@@ -14,10 +14,9 @@ LABEL org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.docker.dockerfile="/Dockerfile"
 
 COPY . /go/src/github.com/lachie83/s3-uploader
-COPY static/ static/
+ADD test.jpg /test.jpg
 
 ENV GOPATH /go
 RUN cd $GOPATH/src/github.com/lachie83/s3-uploader && go install -v .
-ADD test.jpg /test.jpg
 
 CMD ["s3-uploader"]
