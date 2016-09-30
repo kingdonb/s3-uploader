@@ -35,6 +35,8 @@ dependencies:
     - go env
 
 test:
+  override:
+    - cd "${WORKDIR}" && go test -v -race ./...
   # Helm lint the chart
   post:
     - ${HOME}/linux-amd64/helm lint "${HOME}/s3-uploader/charts/s3-uploader"
