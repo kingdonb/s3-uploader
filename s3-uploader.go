@@ -37,7 +37,7 @@ func main() {
 	s3Client := s3.New(session.New(), config)
 
 	// open test.jpg for upload to s3
-	file, err := os.Open("test.jpg")
+	file, err := os.Open("/upload/test.jpg")
 	if err != nil {
 		fmt.Printf("Error opening file: %s", err)
 	}
