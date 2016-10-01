@@ -63,7 +63,7 @@ func main() {
 	}
 	fmt.Printf("Bucket name: %s\n", bucketName)
 	// upload path will be /upload/test.jpg
-	path := "/upload/" + file.Name()
+	path := "/" + file.Name()
 
 	// build params for s3 upload
 	params := &s3.PutObjectInput{
