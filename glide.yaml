@@ -1,4 +1,4 @@
-package: .
+package: github.com/deis/s3-uploader
 import:
 - package: github.com/aws/aws-sdk-go
   subpackages:

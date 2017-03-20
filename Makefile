@@ -1,6 +1,6 @@
 default: docker_build
 
-DOCKER_IMAGE ?= quay.io/lachie83/s3-uploader
+DOCKER_IMAGE ?= quay.io/deis/s3-uploader
 BUILD_NUMBER ?= `git rev-parse --short HEAD`
 VCS_REF ?= `git rev-parse --short HEAD`
 

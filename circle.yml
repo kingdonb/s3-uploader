@@ -45,7 +45,6 @@ deployment:
   hub:
     branch: master
     commands:
-      - echo $DOCKER_PASS | base64 --decode > ${HOME}/docker_pass
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p "$(cat ${HOME}/docker_pass)" quay.io
+      - docker login -e $QUAY_EMAIL -u $QUAY_USER -p $QUAY_PASS quay.io
       - cd "${WORKDIR}" && make docker_build
       - cd "${WORKDIR}" && make docker_push
