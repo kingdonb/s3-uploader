@@ -77,6 +77,7 @@ func main() {
 	resp, err := s3Client.PutObject(params)
 	if err != nil {
 		fmt.Printf("bad response: %s", err)
+		os.Exit(1)
 	}
 
 	fmt.Printf("upload successful. response: \n%s\n", awsutil.StringValue(resp))
