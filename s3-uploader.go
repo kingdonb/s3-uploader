@@ -23,7 +23,8 @@ func main() {
 	}
 
 	// open test.jpg for upload to s3
-	file, err := os.Open("/upload/test.jpg")
+	fileName := "test.jpg"
+	file, err := os.Open(fmt.Sprintf("/upload/%s", fileName))
 	if err != nil {
 		fmt.Printf("Error opening file: %s", err)
 	}
@@ -49,7 +50,7 @@ func main() {
 	fmt.Printf("Bucket name: %s\n", bucketName)
 
 	// upload to s3
-	resp, err := minioClient.PutObject(bucketName, file.Name(), file, fileType)
+	resp, err := minioClient.PutObject(bucketName, fileName, file, fileType)
 	if err != nil {
 		fmt.Printf("bad response: %s", err)
 		os.Exit(1)
