@@ -1,43 +1,30 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"net/http"
 	"os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awsutil"
-	"github.com/aws/aws-sdk-go/aws/credentials"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
+	minio "github.com/minio/minio-go"
 )
 
 func main() {
-	/*
-	   grab AWS credentials from envvars
-	       AWS_ACCESS_KEY_ID
-	       AWS_SECRET_ACCESS_KEY
-	*/
-	creds := credentials.NewEnvCredentials()
+	s3Endpoint := os.Getenv("S3_ENDPOINT")
+	useSSL := false
+	if s3Endpoint == "" {
+		s3Endpoint = "https://s3.amazonaws.com"
+		useSSL = true
+	}
 
-	// test that creds have been read in correctly
-	_, err := creds.Get()
+	minioClient, err := minio.New(s3Endpoint, os.Getenv("AWS_ACCESS_KEY_ID"), os.Getenv("AWS_SECRET_ACCESS_KEY"), useSSL)
 	if err != nil {
-		fmt.Printf("Error getting credentails: %s\n", err)
+		fmt.Printf("error: minioClient failed to connect: %s", err)
 		os.Exit(1)
 	}
 
-	/*
-	   create aws client config for use with s3
-	   hardcoded region as it is irrelevant for s3
-	*/
-	config := aws.NewConfig().WithRegion("us-east-1").WithCredentials(creds)
-	//create s3 client session with config
-	s3Client := s3.New(session.New(), config)
-
 	// open test.jpg for upload to s3
-	file, err := os.Open("/upload/test.jpg")
+	fileName := "test.jpg"
+	file, err := os.Open(fmt.Sprintf("/upload/%s", fileName))
 	if err != nil {
 		fmt.Printf("Error opening file: %s", err)
 	}
@@ -51,7 +38,6 @@ func main() {
 
 	// read in file and generate content length and type for PutObjectInput struct
 	file.Read(buffer)
-	fileBytes := bytes.NewReader(buffer)
 	fileType := http.DetectContentType(buffer)
 
 	// read s3 bucket name from envvar
@@ -62,23 +48,13 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Printf("Bucket name: %s\n", bucketName)
-	// upload path will be /upload/test.jpg
-	path := "/" + file.Name()
 
-	// build params for s3 upload
-	params := &s3.PutObjectInput{
-		Bucket:        aws.String(bucketName),
-		Key:           aws.String(path),
-		Body:          fileBytes,
-		ContentLength: aws.Int64(size),
-		ContentType:   aws.String(fileType),
-	}
 	// upload to s3
-	resp, err := s3Client.PutObject(params)
+	resp, err := minioClient.PutObject(bucketName, fileName, file, fileType)
 	if err != nil {
 		fmt.Printf("bad response: %s", err)
 		os.Exit(1)
 	}
 
-	fmt.Printf("upload successful. response: \n%s\n", awsutil.StringValue(resp))
+	fmt.Printf("upload successful. response: \n%d\n", resp)
 }
