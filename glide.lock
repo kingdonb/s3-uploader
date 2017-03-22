@@ -1,36 +1,11 @@
-hash: cb2647a756f48dc7ffe445dcea9cee83e966cc7b0cbafc2ce55f8949e5351298
-updated: 2017-03-20T12:34:36.566668948-07:00
+hash: 478c3e6140f14965d6d40e2d4ffad3ab5b7c0afd5d1cd8a1af9c06cb98c5d93b
+updated: 2017-03-22T14:50:49.65998369-06:00
 imports:
-- name: github.com/aws/aws-sdk-go
-  version: 5b99715ae2945a2434a2371f4e6c5542e839a32d
+- name: github.com/minio/minio-go
+  version: dcaae9ec4d0b0a81d17f22f6d7a186491f6a55ec
   subpackages:
-  - aws
-  - aws/awserr
-  - aws/awsutil
-  - aws/client
-  - aws/client/metadata
-  - aws/corehandlers
-  - aws/credentials
-  - aws/credentials/ec2rolecreds
-  - aws/credentials/endpointcreds
-  - aws/credentials/stscreds
-  - aws/defaults
-  - aws/ec2metadata
-  - aws/endpoints
-  - aws/request
-  - aws/session
-  - aws/signer/v4
-  - private/protocol
-  - private/protocol/query
-  - private/protocol/query/queryutil
-  - private/protocol/rest
-  - private/protocol/restxml
-  - private/protocol/xml/xmlutil
-  - private/waiter
-  - service/s3
-  - service/sts
-- name: github.com/go-ini/ini
-  version: 1730955e3146956d6a087861380f9b4667ed5071
-- name: github.com/jmespath/go-jmespath
-  version: bd40a432e4c76585ef6b72d3fd96fb9b6dc7b68d
+  - pkg/policy
+  - pkg/s3signer
+  - pkg/s3utils
+  - pkg/set
 testImports: []

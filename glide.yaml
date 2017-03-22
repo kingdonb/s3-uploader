@@ -1,9 +1,4 @@
 package: github.com/deis/s3-uploader
 import:
-- package: github.com/aws/aws-sdk-go
-  subpackages:
-  - aws
-  - aws/awsutil
-  - aws/credentials
-  - aws/session
-  - service/s3
+- package: github.com/minio/minio-go
+  version: ~2.0.4
