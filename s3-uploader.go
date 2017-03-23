@@ -86,7 +86,7 @@ func main() {
 	fmt.Printf("File size: %d\n", size)
 
 	// upload to s3
-	resp, err := minioClient.PutObject(bucketName, fileInfo.Name(), file, fileType)
+	resp, err := minioClient.FPutObject(bucketName, fileInfo.Name(), fullPath, fileType)
 	if err != nil {
 		fmt.Printf("Bad response: %s", err)
 		os.Exit(1)
