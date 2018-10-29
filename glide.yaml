@@ -1,4 +1,4 @@
-package: github.com/teamhephy/s3-uploader
+package: github.com/kingdonb/s3-uploader
 import:
 - package: github.com/minio/minio-go
   version: ~6.0.9

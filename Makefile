@@ -1,6 +1,6 @@
 default: docker_build
 
-DOCKER_IMAGE ?= quay.io/teamhephy/s3-uploader
+DOCKER_IMAGE ?= quay.io/kingdonb/s3-uploader
 BUILD_NUMBER ?= `git rev-parse --short HEAD`
 VCS_REF ?= `git rev-parse --short HEAD`
 
@@ -33,7 +33,7 @@ all: build
 
 .PHONY: build
 build:
-	GOBIN=$(BINDIR) $(GO) install $(GOFLAGS) -tags '$(TAGS)' -ldflags '$(LDFLAGS)' github.com/teamhephy/s3-uploader/...
+	GOBIN=$(BINDIR) $(GO) install $(GOFLAGS) -tags '$(TAGS)' -ldflags '$(LDFLAGS)' github.com/kingdonb/s3-uploader/...
 
 HAS_GLIDE := $(shell command -v glide;)
 HAS_GIT := $(shell command -v git;)
